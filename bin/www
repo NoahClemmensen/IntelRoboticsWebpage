@@ -4,6 +4,9 @@
  * Module dependencies.
  */
 
+const dotenv = require('dotenv')
+dotenv.config()
+
 var app = require('../app');
 var debug = require('debug')('intelroboticswebpage:server');
 var http = require('http');
