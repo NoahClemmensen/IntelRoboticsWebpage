@@ -16,6 +16,6 @@ COPY --chown=node:node . .
 
 COPY --chown=node:node bin ./bin
 
-EXPOSE 3000
+EXPOSE 8080
 
 CMD [ "node", "bin/www" ]

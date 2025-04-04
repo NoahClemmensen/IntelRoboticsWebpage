@@ -3,4 +3,6 @@
     image: intelrobotics:latest
     container_name: intelrobotics
     ports:
-      - "3000:3000"
+      - "8080:8080"
+    volumes:
+      - ".env:/home/node/app/.env"
