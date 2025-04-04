@@ -1,0 +1,6 @@
+﻿services:
+  node:
+    image: intelrobotics:latest
+    container_name: intelrobotics
+    ports:
+      - "3000:3000"
