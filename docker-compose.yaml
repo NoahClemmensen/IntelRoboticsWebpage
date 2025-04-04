@@ -1,8 +1,10 @@
 ﻿services:
   node:
-    image: intelrobotics:latest
+    image: node:22-alpine
     container_name: intelrobotics
     ports:
       - "8080:8080"
     volumes:
-      - ".env:/home/node/app/.env"
+      - ".:/home/node/app"
+    working_dir: /home/node/app
+    command: /bin/sh -c "npm install && node bin/www"
