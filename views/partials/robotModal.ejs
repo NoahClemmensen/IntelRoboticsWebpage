@@ -1,0 +1,22 @@
+<div class="modal fade" id="robotModal" tabindex="-1" aria-labelledby="robotModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" action="/robots/create" id="robotForm">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="robotModalLabel">Ny robot</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="serial_number" class="form-label">Serial nummer (S/N)</label>
+                        <input type="text" class="form-control" id="serial_number" name="serialNumber" placeholder="E.g 0031284501.arduino" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Luk</button>
+                    <button type="submit" class="btn btn-primary">Ny</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

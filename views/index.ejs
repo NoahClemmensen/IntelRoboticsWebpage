@@ -1,11 +1,82 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
-  <%- include('./partials/head') %>
-  <body>
-  <div id="main-container">
+<%- include('./partials/head') %>
+<body>
+<div id="main-container">
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </div>
-  </body>
-  <%- include('./partials/scripts') %>
+    <div class="d-flex justify-content-center flex-wrap gap-5">
+        <div class="d-flex flex-column justify-content-center gap-1">
+            <h2>Robots</h2>
+            <button class="btn btn-outline-primary mb-2" data-bs-toggle="modal" data-bs-target="#robotModal">+ Add
+            </button>
+            <input type="text" id="robotSearch" class="form-control mb-3"
+                   placeholder="Search robots by S/N, location, or status">
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>S/N</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody id="robotTableBody">
+                <% robots.forEach((robot, index) => { %>
+                    <tr>
+                        <td>
+                            <strong>
+                                <%= index + 1 %>
+                            </strong>
+                        </td>
+                        <td><%= robot.serial_number %></td>
+                        <td><%= robot.location %></td>
+                        <td><%= robot.status %></td>
+                        <td>
+                            <a href="/robot/<%= robot.serialNumber %>" class="btn btn-outline-info">
+                                Details
+                            </a>
+                        </td>
+                    </tr>
+                <% }) %>
+                </tbody>
+            </table>
+            <%- include('./partials/robotModal') %>
+        </div>
+        <div class="d-flex flex-column justify-content-center gap-1">
+            <h2>Locations</h2>
+            <button class="btn btn-outline-primary mb-2" data-bs-toggle="modal" data-bs-target="#locationModal">+ Add
+            </button>
+            <input type="text" id="locationSearch" class="form-control mb-3" placeholder="Search locations by name">
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody id="locationTableBody">
+                <% locations.forEach((location, index) => { %>
+                    <tr>
+                        <td><strong><%= index + 1 %></strong></td>
+                        <td><%= location.name %></td>
+                        <td>
+                            <button class="btn btn-outline-danger">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                <% }) %>
+                </tbody>
+            </table>
+            <%- include('./partials/locationModal') %>
+        </div>
+    </div>
+</div>
+</body>
+<%- include('./partials/scripts') %>
+<script src="/javascripts/controlpanel.js"></script>
 </html>

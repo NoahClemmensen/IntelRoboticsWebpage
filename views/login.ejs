@@ -5,16 +5,22 @@
 <div id="main-container">
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
-    <form>
+    <form id="login-form" method="get" action="/api/login">
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username" placeholder="Enter username">
+            <input required type="text" class="form-control" id="username" name="username" placeholder="Enter username">
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Enter password">
+            <input required type="password" class="form-control" id="password" name="password"
+                   placeholder="Enter password">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
+        <% if (typeof error !== 'undefined') { %>
+            <div class="alert alert-danger mt-3" role="alert">
+                <%= error %>
+            </div>
+        <% } %>
     </form>
 </div>
 </body>
