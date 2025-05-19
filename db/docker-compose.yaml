@@ -1,0 +1,20 @@
+services:
+  db:
+    image: mysql:9.3
+    container_name: db
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: intelrobotics
+      MYSQL_ROOT_PASSWORD: stikadmin1bajer
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_USER: intel
+      MYSQL_PASSWORD: stikintel1bajer
+    volumes:
+      - /Users/noahclemmensen/WebstormProjects/IntelRoboticsWebpage/db/config:/etc/mysql/conf.d
+
+# Make a .cnf file with:
+# [mysqld]
+# default-time-zone = "+01:00"
+# bind-address = 0.0.0.0
