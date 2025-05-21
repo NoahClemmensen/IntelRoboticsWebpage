@@ -30,6 +30,10 @@ class Database {
         return this.query('SELECT * FROM robot_details where status_id != 3');
     }
 
+    static async getTotalStatistics() {
+        return this.query('SELECT * FROM total_statistics');
+    }
+
     static async getLocations() {
         return this.query('SELECT * FROM locations');
     }
