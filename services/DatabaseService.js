@@ -65,6 +65,19 @@ class Database {
         }
     }
 
+    static async deleteUser(id) {
+        try {
+            return this.queryProcedure('delete_user(?)', [id]);
+        } catch (e) {
+            console.error('Error deleting user:', e);
+            throw new Error('Failed to delete user');
+        }
+    }
+
+    static async getUserDetails() {
+        return this.query('SELECT * FROM user_details WHERE deleted != 1');
+    }
+
     static async getRobotDetailsById(id) {
         const result = await this.query('SELECT * FROM robot_details WHERE robot_id = ?', [id]);
         try {
@@ -108,11 +121,19 @@ class Database {
     }
 
     static async getUserDetailsById(id) {
-        return await this.query('SELECT * FROM users WHERE id = ?', [id]);
+        return await this.query('SELECT * FROM user_details WHERE id = ?', [id]);
     }
 
     static async getUserDetailsByUsername(username) {
         return await this.query('SELECT * FROM users WHERE username = ?', [username]);
+    }
+
+    static async updateUser(id, username, password, role_id, location_id) {
+        return this.queryProcedure('update_user(?, ?, ?, ?, ?)', [id, username, password, role_id, location_id]);
+    }
+
+    static async getFailedRobots() {
+        return this.query('SELECT * FROM robot_details WHERE status_id = 4');
     }
 
     static async query(sql, args) {

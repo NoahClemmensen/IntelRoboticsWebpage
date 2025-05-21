@@ -7,8 +7,9 @@ const Database = require('../../services/DatabaseService');
 router.get('/', async function (req, res, next) {
     const robots = await Database.getRobotDetails();
     const locations = await Database.getLocations();
-    const users = await Database.getUsers();
+    const users = await Database.getUserDetails();
     const roles = await Database.getRoles();
+    const failures = await Database.getFailedRobots();
 
     res.render('index', {
         title: "Control panel", robots: robots, locations: locations,
@@ -19,6 +20,7 @@ router.get('/', async function (req, res, next) {
         user_error: req.query.user_error,
         users: users,
         roles: roles,
+        failures: failures,
     });
 });
 
