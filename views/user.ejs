@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<%- include('./partials/head') %>
+<body>
+<%- include('./partials/navBar') %>
+<div id="main-container">
+    <h1><%= title %></h1>
+    <div class="d-flex justify-content-center flex-wrap gap-5">
+        <div class="d-flex flex-column justify-content-center gap-1">
+            <form class="d-flex flex-column gap-1" method="POST" action="/api/users/update/<%= user.id %>">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="username" name="username" value="<%= user.username %>" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password"
+                           placeholder="Something strong" required>
+                </div>
+                <div class="mb-3">
+                    <label for="location_id">Location:</label>
+                    <select id="location_id" name="location_id" class="form-select" required>
+                        <% locations.forEach(function(location) { %>
+                            <option value="<%= location.id %>" <%= user.location_id === location.id ? 'selected' : '' %>><%= location.name %></option>
+                        <% }); %>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="role_id">Role:</label>
+                    <select id="role_id" name="role_id" class="form-select" required>
+                        <% roles.forEach(function(role) { %>
+                            <option value="<%= role.id %>" <%= user.role_id === role.id ? 'selected' : '' %>><%= role.name %></option>
+                        <% }); %>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3">Save</button>
+                <% if (typeof error !== 'undefined') { %>
+                    <div class="alert alert-danger mt-3" role="alert">
+                        <%= error %>
+                    </div>
+                <% } %>
+            </form>
+            <form method="POST" action="/api/users/delete/<%= user.id %>" <%= staff ? '' : 'd-none' %>>
+                <button type="submit" class="btn btn-danger mt-3">Delete</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<%- include('./partials/scripts') %>
+</html>

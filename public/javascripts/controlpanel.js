@@ -8,14 +8,4 @@ $(document).ready(function () {
             $(this).toggle(match);
         });
     });
-
-    $('#locationSearch').on('input', function () {
-        const searchValue = $(this).val().toLowerCase();
-        $('#locationTableBody tr').each(function () {
-            const match = $(this).find('td').toArray().some(cell =>
-                $(cell).text().toLowerCase().includes(searchValue)
-            );
-            $(this).toggle(match);
-        });
-    });
 });

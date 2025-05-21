@@ -10,9 +10,11 @@ const UserService = require('./services/UserService').getInstance();
 const indexRouter = require('./routes/web/index');
 const loginRouter = require('./routes/web/login');
 const robotRouter = require('./routes/web/robot');
+const userRouter = require('./routes/web/user');
 
 const apiRobotRouter = require('./routes/api/robots');
 const apiLoginRouter = require('./routes/api/login');
+const apiUserRouter = require('./routes/api/users');
 
 const app = express();
 
@@ -89,10 +91,12 @@ app.use('/home', indexRouter);
 app.use('/', loginRouter);
 app.use('/login', loginRouter);
 app.use('/robot', robotRouter);
+app.use('/user', userRouter);
 
 // API Services
 app.use('/api/login', apiLoginRouter);
 app.use('/api/robots', apiRobotRouter);
+app.use('/api/users', apiUserRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

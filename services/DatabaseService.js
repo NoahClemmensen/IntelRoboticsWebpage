@@ -55,8 +55,14 @@ class Database {
         return this.query('SELECT * FROM users WHERE username = ?', [username]);
     }
 
-    static async createUser(username, password) {
-        return this.queryProcedure('create_user(?, ?)', [username, password]);
+    static async createUser(username, password, role_id, location_id) {
+        try {
+            console.log(username, password, role_id, location_id);
+            return this.queryProcedure('create_user(?, ?, ?, ?)', [username, password, role_id, location_id]);
+        } catch (e) {
+            console.error('Error creating user:', e);
+            throw new Error('Failed to create user');
+        }
     }
 
     static async getRobotDetailsById(id) {
@@ -91,6 +97,22 @@ class Database {
 
     static async deleteRobot(id) {
         return this.queryProcedure('delete_robot(?)', [id]);
+    }
+
+    static async getUsers() {
+        return this.query('SELECT * FROM users');
+    }
+
+    static async getRoles() {
+        return this.query('SELECT * FROM roles');
+    }
+
+    static async getUserDetailsById(id) {
+        return await this.query('SELECT * FROM users WHERE id = ?', [id]);
+    }
+
+    static async getUserDetailsByUsername(username) {
+        return await this.query('SELECT * FROM users WHERE username = ?', [username]);
     }
 
     static async query(sql, args) {

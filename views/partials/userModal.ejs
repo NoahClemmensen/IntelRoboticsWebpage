@@ -1,0 +1,43 @@
+<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" action="/api/users/create" id="userForm">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="userModalLabel">New user</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="E.g Noah" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password"
+                               placeholder="Something strong" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="location_id">Location:</label>
+                        <select id="location_id" name="location_id" class="form-select" required>
+                            <% locations.forEach(function(location) { %>
+                                <option value="<%= location.id %>"><%= location.name %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="role_id">Role:</label>
+                        <select id="role_id" name="role_id" class="form-select" required>
+                            <% roles.forEach(function(role) { %>
+                                <option value="<%= role.id %>"><%= role.name %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">New</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

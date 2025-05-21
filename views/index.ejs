@@ -48,42 +48,41 @@
                 <% }) %>
                 </tbody>
             </table>
-            <%- include('./partials/robotModal', {locations: locations}) %>
+            <%- include('./partials/robotModal') %>
         </div>
-        <div class="d-flex flex-column justify-content-center gap-1 <%= staff ? '' : 'd-none' %>">
-            <h2>Locations</h2>
-            <button class="btn btn-outline-primary mb-2" data-bs-toggle="modal" data-bs-target="#locationModal">+ Add
+        <div class="d-flex flex-column justify-content-center gap-1 <%= admin ? '' : 'd-none' %>">
+            <h2>Users</h2>
+            <button class="btn btn-outline-primary mb-2" data-bs-toggle="modal" data-bs-target="#userModal">+ Add
             </button>
-            <% if (typeof location_error !== 'undefined') { %>
+            <% if (typeof user_error !== 'undefined') { %>
                 <div class="alert alert-danger mt-3" role="alert">
-                    <%= location_error %>
+                    <%= user_error %>
                 </div>
             <% } %>
-            <input type="text" id="locationSearch" class="form-control mb-3" placeholder="Search locations by name">
 
             <table class="table">
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Name</th>
+                    <th>Username</th>
                     <th></th>
                 </tr>
                 </thead>
-                <tbody id="locationTableBody">
-                <% locations.forEach((location, index) => { %>
+                <tbody id="userTableBody">
+                <% users.forEach((user, index) => { %>
                     <tr>
                         <td><strong><%= index + 1 %></strong></td>
-                        <td><%= location.name %></td>
+                        <td><%= user.username %></td>
                         <td>
-                            <button class="btn btn-outline-danger">
-                                Delete
-                            </button>
+                            <a href="/user/<%= user.username %>" class="btn btn-outline-info">
+                                Details
+                            </a>
                         </td>
                     </tr>
                 <% }) %>
                 </tbody>
             </table>
-            <%- include('./partials/locationModal') %>
+            <%- include('./partials/userModal') %>
         </div>
     </div>
 </div>

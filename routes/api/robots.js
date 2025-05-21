@@ -2,10 +2,6 @@ const express = require('express');
 const router = express.Router();
 const DatabaseService = require('../../services/DatabaseService');
 
-router.get('/', (req, res) => {
-    res.status(200).json({message: 'Robot API is working'});
-})
-
 router.post('/update/:id', async function (req, res, next) {
     const {id} = req.params;
     const dbRobot = await DatabaseService.getRobotDetailsById(id);
