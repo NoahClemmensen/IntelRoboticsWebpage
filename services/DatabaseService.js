@@ -27,7 +27,7 @@ class Database {
     }
 
     static async getRobotDetails() {
-        return this.query('SELECT * FROM robot_details');
+        return this.query('SELECT * FROM robot_details where status_id != 3');
     }
 
     static async getLocations() {
@@ -38,12 +38,59 @@ class Database {
         return this.queryProcedure('create_location(?)', [name]);
     }
 
-    static async createRobot(name, locationId) {
-        return this.queryProcedure('create_robot(?, ?)', [name, locationId]);
+    static async createRobot(serial, locationId) {
+        try {
+            return this.queryProcedure('create_robot(?, ?)', [serial, locationId]);
+        } catch (e) {
+            console.error('Error creating robot:', e);
+            throw new Error('Failed to create robot');
+        }
     }
 
     static async logAction(status, serial, data) {
         return this.queryProcedure('log_action(?, ?, ?)', [status, serial, data]);
+    }
+
+    static async getUserByUsername(username) {
+        return this.query('SELECT * FROM users WHERE username = ?', [username]);
+    }
+
+    static async createUser(username, password) {
+        return this.queryProcedure('create_user(?, ?)', [username, password]);
+    }
+
+    static async getRobotDetailsById(id) {
+        const result = await this.query('SELECT * FROM robot_details WHERE robot_id = ?', [id]);
+        try {
+            return result[0];
+        } catch (error) {
+            console.error('Error fetching robot details by ID:', error);
+            return null;
+        }
+    }
+
+    static async getRobotDetailsBySerial(serial) {
+        return this.query('SELECT * FROM robot_details WHERE serial_number = ?', [serial]);
+    }
+
+    static async getStatuses() {
+        return this.query('SELECT * FROM statuses');
+    }
+
+    static async updateRobot(id, serial_number, status, location) {
+        return this.queryProcedure('update_robot(?, ?, ?, ?)', [id, status, location, serial_number]);
+    }
+
+    static async getUserRoleId(username) {
+        const result = await this.query('SELECT role_id FROM users WHERE username = ?', [username]);
+        if (result) {
+            return result[0].role_id;
+        }
+        return null;
+    }
+
+    static async deleteRobot(id) {
+        return this.queryProcedure('delete_robot(?)', [id]);
     }
 
     static async query(sql, args) {

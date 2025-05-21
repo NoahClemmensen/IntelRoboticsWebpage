@@ -2,6 +2,7 @@
 <html lang="en" data-bs-theme="dark">
 <%- include('./partials/head') %>
 <body>
+<%- include('./partials/navBar') %>
 <div id="main-container">
     <h1><%= title %></h1>
     <div class="d-flex justify-content-center flex-wrap gap-5">
@@ -9,6 +10,11 @@
             <h2>Robots</h2>
             <button class="btn btn-outline-primary mb-2" data-bs-toggle="modal" data-bs-target="#robotModal">+ Add
             </button>
+            <% if (typeof robot_error !== 'undefined') { %>
+                <div class="alert alert-danger mt-3" role="alert">
+                    <%= robot_error %>
+                </div>
+            <% } %>
             <input type="text" id="robotSearch" class="form-control mb-3"
                    placeholder="Search robots by S/N, location, or status">
 
@@ -31,10 +37,10 @@
                             </strong>
                         </td>
                         <td><%= robot.serial_number %></td>
-                        <td><%= robot.location %></td>
-                        <td><%= robot.status %></td>
+                        <td><%= robot.location_name %></td>
+                        <td><%= robot.status_name %></td>
                         <td>
-                            <a href="/robot/<%= robot.serialNumber %>" class="btn btn-outline-info">
+                            <a href="/robot/<%= robot.serial_number %>" class="btn btn-outline-info">
                                 Details
                             </a>
                         </td>
@@ -42,12 +48,17 @@
                 <% }) %>
                 </tbody>
             </table>
-            <%- include('./partials/robotModal') %>
+            <%- include('./partials/robotModal', {locations: locations}) %>
         </div>
-        <div class="d-flex flex-column justify-content-center gap-1">
+        <div class="d-flex flex-column justify-content-center gap-1 <%= staff ? '' : 'd-none' %>">
             <h2>Locations</h2>
             <button class="btn btn-outline-primary mb-2" data-bs-toggle="modal" data-bs-target="#locationModal">+ Add
             </button>
+            <% if (typeof location_error !== 'undefined') { %>
+                <div class="alert alert-danger mt-3" role="alert">
+                    <%= location_error %>
+                </div>
+            <% } %>
             <input type="text" id="locationSearch" class="form-control mb-3" placeholder="Search locations by name">
 
             <table class="table">

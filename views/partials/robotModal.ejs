@@ -1,20 +1,27 @@
 <div class="modal fade" id="robotModal" tabindex="-1" aria-labelledby="robotModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="POST" action="/robots/create" id="robotForm">
+            <form method="POST" action="/api/robots/create" id="robotForm">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="robotModalLabel">Ny robot</h1>
+                    <h1 class="modal-title fs-5" id="robotModalLabel">New robot</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="serial_number" class="form-label">Serial nummer (S/N)</label>
-                        <input type="text" class="form-control" id="serial_number" name="serialNumber" placeholder="E.g 0031284501.arduino" required>
+                        <label for="serial_number" class="form-label">Serial number (S/N)</label>
+                        <input type="text" class="form-control" id="serial_number" name="serial_number" placeholder="E.g 0031284501.arduino" required>
+
+                        <label for="location_id">Location:</label>
+                        <select id="location_id" name="location_id" class="form-select" <%= staff ? '' : 'disabled' %> required>
+                            <% locations.forEach(function(location) { %>
+                                <option value="<%= location.id %>"><%= location.name %></option>
+                            <% }); %>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Luk</button>
-                    <button type="submit" class="btn btn-primary">Ny</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">New</button>
                 </div>
             </form>
         </div>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<%- include('./partials/head') %>
+<body>
+<%- include('./partials/navBar') %>
+<div id="main-container">
+    <h1><%= title %></h1>
+    <div class="d-flex justify-content-center flex-wrap gap-5">
+        <div class="d-flex flex-column justify-content-center gap-1">
+            <form class="d-flex flex-column gap-1" method="POST" action="/api/robots/update/<%= robot.robot_id %>">
+                <label for="serial_number">Serial number:</label>
+                <input type="text" id="serial_number" name="serial_number" class="form-control"
+                       value="<%= robot.serial_number %>" required>
+
+                <label for="status_id">Status:</label>
+                <select id="status_id" name="status_id" class="form-select" <%= staff ? '' : 'disabled' %> required>
+                    <% statuses.forEach(function(status) { %>
+                        <option value="<%= status.id %>" <%= robot.status_id === status.id ? 'selected' : '' %>><%= status.name %></option>
+                    <% }); %>
+                </select>
+
+                <label for="location_id">Location:</label>
+                <select id="location_id" name="location_id" class="form-select" <%= staff ? '' : 'disabled' %> required>
+                    <% locations.forEach(function(location) { %>
+                        <option value="<%= location.id %>" <%= robot.location_id === location.id ? 'selected' : '' %>><%= location.name %></option>
+                    <% }); %>
+                </select>
+
+                <button type="submit" class="btn btn-primary mt-3">Save</button>
+                <% if (typeof error !== 'undefined') { %>
+                    <div class="alert alert-danger mt-3" role="alert">
+                        <%= error %>
+                    </div>
+                <% } %>
+            </form>
+            <form method="POST" action="/api/robots/delete/<%= robot.robot_id %>" <%= staff ? '' : 'd-none' %>>
+                <button type="submit" class="btn btn-danger mt-3">Delete</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<%- include('./partials/scripts') %>
+</html>

@@ -4,7 +4,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
     const isLoggedIn = req.cookies.isLoggedIn;
     if (isLoggedIn) {
-        return res.redirect('/web');
+        return res.redirect('/home');
     }
     
     res.render('login', { title: 'Login' });
