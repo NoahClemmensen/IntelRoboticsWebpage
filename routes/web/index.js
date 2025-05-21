@@ -7,6 +7,7 @@ const Database = require('../../services/DatabaseService');
 router.get('/', async function (req, res, next) {
     const robots = await Database.getRobotDetails();
     const locations = await Database.getLocations();
+    const totalStatistics = await Database.getTotalStatistics();
     const users = await Database.getUsers();
     const roles = await Database.getRoles();
 
@@ -19,6 +20,7 @@ router.get('/', async function (req, res, next) {
         user_error: req.query.user_error,
         users: users,
         roles: roles,
+        totalStatistics: totalStatistics,
     });
 });
 
