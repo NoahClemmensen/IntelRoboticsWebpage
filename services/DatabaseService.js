@@ -140,6 +140,10 @@ class Database {
         return this.query('SELECT * FROM robot_details WHERE status_id = 4');
     }
 
+    static async updateRobotStatus(id, status) {
+        return this.queryProcedure('update_status(?, ?)', [id, status]);
+    }
+
     static async query(sql, args) {
         if (selectConn instanceof Promise) {
             selectConn = await selectConn;
