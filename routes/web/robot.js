@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const DatabaseService = require('../../services/databaseService');
+const DatabaseService = require('../../services/DatabaseService');
 
 router.get('/:sn', async function (req, res, next) {
     let robotData = await DatabaseService.getRobotDetailsBySerial(req.params.sn);

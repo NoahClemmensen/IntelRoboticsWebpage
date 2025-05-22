@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const DatabaseService = require('../../services/databaseService');
+const DatabaseService = require('../../services/DatabaseService');
 
 router.get('/:username', async function (req, res, next) {
     let userData = await DatabaseService.getUserDetailsByUsername(req.params.username);

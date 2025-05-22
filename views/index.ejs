@@ -11,7 +11,7 @@
             <p>There are <strong><%= failures.length %></strong> failures in the system. Failed robots:</p>
             <ul>
                 <% failures.forEach((failure) => { %>
-                    <li><%= failure.serial_number %></li>
+                    <li><a href="/robot/<%= failure.serial_number %>"><%= failure.serial_number %></a></li>
                 <% }) %>
             </ul>
         </div>
